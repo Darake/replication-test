@@ -1,0 +1,21 @@
+version: "3"
+services:
+  database:
+    container_name: master_db
+    build: .
+    volumes:
+      - master_data:/var/lib/postgresql/data
+      - pg_wal_archive:/var/lib/postgresql/walarchive:z
+    environment:
+      POSTGRES_USER: test_user
+      POSTGRES_DB: test_db
+      POSTGRES_PASSWORD: secret
+      PG_REP_USER: rep
+      PG_REP_PASSWORD: repsecret
+    expose:
+     - 6662
+    ports:
+     - "6662:5432"
+volumes:
+  master_data:
+  pg_wal_archive:

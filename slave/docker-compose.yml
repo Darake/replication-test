@@ -1,0 +1,22 @@
+version: "3"
+services:
+  slave:
+    container_name: slave_db
+    build: .
+    volumes:
+      - slave_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: test_user
+      POSTGRES_DB: test_db
+      POSTGRES_PASSWORD: secret
+      PG_REP_USER: rep
+      PG_REP_PASSWORD: repsecret
+      PG_MASTER: localhost
+    expose:
+     - 6663
+    ports:
+     - "6663:5432"
+    shm_size: '2gb'
+    network_mode: host
+volumes:
+  slave_data:
